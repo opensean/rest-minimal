@@ -1,0 +1,24 @@
+## Sean Landry
+version: "3.5"
+
+services:
+  rest-minimal:
+    container_name: rest-minimal
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: opensean/rest-minimal:$CURRENT_VERSION
+    environment:
+      - SECRET_KEY=$SECRET_KEY
+      - ISMTP_PORT=$ISMTP_PORT
+      - ISMTP_RELAY=$ISMTP_RELAY
+      - SENDER_EMAIL=$SENDER_EMAIL
+      - RECIEVER_EMAIL=$RECIEVER_EMAIL
+    deploy:
+        replicas: 1
+    volumes:
+            - $LOCAL:/opt/rest-minimal
+    restart: always
+    user: $UID:$GID
+    ports:
+        - 5000:5000
