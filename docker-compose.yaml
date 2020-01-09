@@ -17,7 +17,7 @@ services:
     deploy:
         replicas: 1
     volumes:
-            - $LOCAL:/opt/rest-minimal
+            - $LOCAL:/opt/rest_minimal/
     restart: always
     user: $UID:$GID
     ports:
