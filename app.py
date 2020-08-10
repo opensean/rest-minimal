@@ -1,5 +1,5 @@
 ## Sean Landry
-from flask import Flask, request
+from flask import Flask, request, jsonify
 from flask.logging import default_handler
 import smtplib
 import json
@@ -48,7 +48,7 @@ def sending_email(request, method, remote_addr):
 def basic():
     app.logger.info("recieved " + request.method + " from " + request.remote_addr + "\n" + json.dumps(request.json, indent = 2, sort_keys = True))
     if request.json:
-        return request.json, 200
+        return jsonify(request.json)
     else:
         return "hello world", 200
 
@@ -57,7 +57,7 @@ def send_email():
     app.logger.info("recieved " + request.method + " from " + request.remote_addr + "\n" + json.dumps(request.json, indent = 2, sort_keys = True))
     if request.json:
         sending_email(request.json, request.method, request.remote_addr)
-        return request.json, 200
+        return jsonify(request.json)
     else:
         sending_email("hello world", request.method, request.remote_addr)
         return "hello world", 200
